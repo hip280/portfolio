@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="description" content="<%= profile.name %> — <%= profile.role %>. Engineering, education and research portfolio.">
+  <title><%= profile.name %> | Mechanical Engineer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- Full-Page Floating & Spinning Spur Gear -->
+<div class="global-gear-watermark" aria-hidden="true">
+  <div class="gear-spinner">
+    <img src="https://cdn.prod.website-files.com/666223b7acd8b26d8e0d2603/66a802ad1ab16314fda2ff37_The%20Adams%20Company%20-%20Spur%20Gears.png" alt="Rotating Spur Gear" class="rotating-gear-img">
+  </div>
+</div>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="<%= profile.name %> home">
+        <span class="brand-mark">⚙</span>
+        <span class="brand-text"><strong><%= profile.name %></strong><small>Mechanical Engineer</small></span>
+      </a>
+      <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Toggle navigation">
+      <label class="nav-burger" for="nav-toggle" aria-hidden="true"><span></span><span></span></label>
+      <div class="nav-menu">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+        <a class="button-cv" href="mailto:<%= profile.email %>">Download CV <span>↓</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero container" id="home">
+      <div class="hero-content">
+        <p class="eyebrow">Hello, I'm</p>
+        <h1><%= profile.name %></h1>
+        <h2><%= profile.role %></h2>
+        <p class="hero-description"><%= profile.tagline %></p>
+        <div class="hero-buttons">
+          <a class="button button-primary" href="#projects">View My Projects <span>→</span></a>
+          <a class="button button-secondary" href="mailto:<%= profile.email %>">Download CV <span>↓</span></a>
+        </div>
+        <div class="hero-socials">
+          <a href="mailto:<%= profile.email %>" aria-label="Email">✉</a>
+          <a href="tel:<%= profile.phone %>" aria-label="Phone">📞</a>
+          <span class="location-badge">📍 <%= profile.location %></span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="blueprint-card surface">
+          <div class="blueprint-head"><span>TURBINE SYSTEM DESIGN — 001</span><span>FIG. 01</span></div>
+          <div class="blueprint-drawing">
+            <svg viewBox="0 0 440 320" role="img" aria-label="Engineering turbine schematic">
+              <defs>
+                <linearGradient id="blue-gradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0284c7"/><stop offset="1" stop-color="#3b82f6"/></linearGradient>
+              </defs>
+              <g stroke="url(#blue-gradient)" fill="none" stroke-width="1.5">
+                <circle cx="220" cy="160" r="90" stroke-dasharray="4 4"/>
+                <circle cx="220" cy="160" r="65"/>
+                <circle cx="220" cy="160" r="30"/>
+                <path d="M220 70v30M220 220v30M130 160h30M280 160h30"/>
+              </g>
+            </svg>
+          </div>
+          <div class="blueprint-foot"><span>Engineering Better Tomorrow</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metrics Bar -->
+    <section class="metrics container" aria-label="Portfolio highlights">
+      <div class="metric-card surface"><strong>3+</strong><span>Years Experience</span></div>
+      <div class="metric-card surface"><strong>10+</strong><span>Projects Completed</span></div>
+      <div class="metric-card surface"><strong>5+</strong><span>Certifications</span></div>
+      <div class="metric-card surface"><strong>100%</strong><span>Dedication</span></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section container" id="about">
+      <div class="section-heading">
+        <p class="section-label">01 — ABOUT ME</p>
+        <h2>Building Efficient Solutions</h2>
+      </div>
+      <div class="about-grid">
+        <article class="surface about-feature">
+          <p><%= profile.summary %></p>
+          <blockquote>“<%= profile.objective %>”</blockquote>
+          <a class="button button-primary" href="#contact">Learn More <span>→</span></a>
+        </article>
+        <article class="surface about-details">
+          <div class="detail-row"><span>📍 Location</span><strong><%= profile.location %></strong></div>
+          <div class="detail-row"><span>Languages</span><strong><%= profile.languages.join(" · ") %></strong></div>
+          <div class="signature"><%= profile.name %></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section container" id="skills">
+      <div class="section-heading">
+        <p class="section-label">02 — SKILLS</p>
+        <h2>My Technical Skills</h2>
+        <p class="section-summary">Proficient in modern engineering tools and technology to design, analyze and develop innovative solutions.</p>
+      </div>
+      <div class="skills-grid">
+        <% profile.skills.forEach((skill, index) => { %>
+          <article class="surface skill-card">
+            <span class="skill-icon"><%= ["⚙", "📐", "🔬", "📊", "💻", "⚡", "🔧", "🛠"][index % 8] %></span>
+            <div>
+              <h3><%= skill.name %></h3>
+              <p><%= skill.type %></p>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section container" id="projects">
+      <div class="section-heading">
+        <p class="section-label">04 — PROJECTS</p>
+        <h2>Featured Projects</h2>
+      </div>
+      <div class="projects-grid">
+        <article class="surface project-card">
+          <h3>Turbine Blade Design</h3>
+          <p class="project-tags"><span>SolidWorks</span> <span>ANSYS</span></p>
+          <p>3D modeling and thermal analysis of turbine blade for high efficiency.</p>
+          <a href="#contact" class="project-link">View Details <span>→</span></a>
+        </article>
+        <article class="surface project-card">
+          <h3>Gearbox Assembly</h3>
+          <p class="project-tags"><span>SolidWorks</span> <span>AutoCAD</span></p>
+          <p>Design and assembly of gearbox with detailed drawings.</p>
+          <a href="#contact" class="project-link">View Details <span>→</span></a>
+        </article>
+        <article class="surface project-card">
+          <h3>Piping System Design</h3>
+          <p class="project-tags"><span>AutoCAD</span> <span>ANSYS</span></p>
+          <p>Design of industrial piping system with stress analysis.</p>
+          <a href="#contact" class="project-link">View Details <span>→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section container" id="experience">
+      <div class="section-heading">
+        <p class="section-label">03 — EXPERIENCE</p>
+        <h2>Work Experience</h2>
+      </div>
+      <div class="timeline">
+        <% profile.experience.forEach((item, index) => { %>
+          <article class="surface timeline-card">
+            <div class="timeline-meta"><span><%= item.period %></span></div>
+            <h3><%= item.title %></h3>
+            <p class="organization"><%= item.org %></p>
+            <p><%= item.detail %></p>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section container" id="education">
+      <div class="section-heading">
+        <p class="section-label">05 — EDUCATION</p>
+        <h2>My Education</h2>
+      </div>
+      <div class="education-grid">
+        <% profile.education.forEach((item, index) => { %>
+          <article class="surface education-card">
+            <div class="education-top"><span><%= item.year %></span></div>
+            <h3><%= item.degree %></h3>
+            <p><%= item.school %></p>
+            <div class="result">Result: <strong><%= item.result %></strong></div>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section container" id="contact">
+      <div class="surface contact-panel">
+        <p class="section-label">06 — CONTACT</p>
+        <h2>Get In Touch</h2>
+        <p>Have a project in mind or just want to say hello? Feel free to reach out!</p>
+        <div class="contact-info-grid">
+          <div><span>📧 Email</span><strong><%= profile.email %></strong></div>
+          <div><span>📞 Phone</span><strong><%= profile.phone %></strong></div>
+          <div><span>📍 Location</span><strong><%= profile.location %></strong></div>
+        </div>
+        <form class="contact-form" action="mailto:<%= profile.email %>" method="POST" enctype="text/plain">
+          <div class="form-group"><input type="text" placeholder="Your Name" required></div>
+          <div class="form-group"><input type="email" placeholder="Your Email" required></div>
+          <div class="form-group full"><textarea placeholder="Your Message" rows="4" required></textarea></div>
+          <button type="submit" class="button button-primary">Send Message <span>→</span></button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <div class="footer-brand"><%= profile.name %> <span>· Mechanical Engineer</span></div>
+    <p>© <%= new Date().getFullYear() %> <%= profile.name %>. All rights reserved.</p>
+  </footer>
+
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- Inside views/index.ejs -->
+<script src="/js/script.js"></script>
+
+</body>
+</html>

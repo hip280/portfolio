@@ -1,0 +1,858 @@
+/* ==========================================
+   Advanced 3D Mechanical Engineering Theme
+   ========================================== */
+:root {
+  --bg-primary: #f1f6fa;
+  --bg-secondary: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.88);
+  
+  --text-primary: #0b1329;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  
+  --accent-cyan: #0284c7;
+  --accent-blue: #2563eb;
+  --accent-gradient: linear-gradient(135deg, #0284c7 0%, #3b82f6 100%);
+  --accent-glow: rgba(2, 132, 199, 0.2);
+  
+  --border-color: rgba(226, 232, 240, 0.85);
+  --card-shadow: 0 12px 30px -10px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   3D Mechanical Background & Page Base
+   ========================================== */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+
+  /* 1. Local Mechanical Background Image (blended with soft light overlay) */
+  background-image: 
+    linear-gradient(rgba(241, 246, 250, 0.88), rgba(241, 246, 250, 0.92)),
+    url('/images/image.png'),
+    url('/image.png'); /* Fallback if placed directly inside public folder */
+  
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* 2. Engineering Technical Graph Grid Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(2, 132, 199, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2, 132, 199, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: center center;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 3. Soft Radial Glows for Light Depth */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 65%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container {
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   Navigation Header
+   ========================================== */
+.header {
+  background-color: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0.9rem 0;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.brand-mark {
+  background: var(--accent-gradient);
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand-text strong {
+  font-size: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.3px;
+}
+
+.brand-text small {
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.nav-menu a:hover, .nav-menu a.active {
+  color: var(--accent-cyan);
+}
+
+.button-cv {
+  background: var(--accent-gradient) !important;
+  color: white !important;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px var(--accent-glow);
+  transition: var(--transition);
+}
+
+.button-cv:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+.nav-toggle, .nav-burger {
+  display: none;
+}
+
+/* ==========================================
+   Surface Cards
+   ========================================== */
+.surface {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  padding: 1.8rem;
+  transition: var(--transition);
+}
+
+.surface:hover {
+  border-color: rgba(2, 132, 199, 0.35);
+  box-shadow: 0 20px 35px -10px var(--accent-glow);
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  letter-spacing: 1.5px;
+  margin-bottom: 0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  margin-bottom: 2.5rem;
+}
+
+.section-heading h2 {
+  font-size: 2.3rem;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.section {
+  padding: 4.5rem 0;
+}
+
+/* ==========================================
+   Hero Section
+   ========================================== */
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+  padding: 5rem 0 4rem 0;
+}
+
+.hero-content .eyebrow {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin: 0.2rem 0 0.5rem 0;
+}
+
+.hero-content h2 {
+  font-size: 1.35rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.hero-description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 580px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.button {
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+  font-size: 0.95rem;
+}
+
+.button-primary {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 6px 18px var(--accent-glow);
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.button-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+.button-secondary:hover {
+  border-color: var(--accent-cyan);
+  background: #f8fafc;
+}
+
+.hero-socials {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 0.95rem;
+}
+
+.hero-socials a {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-decoration: none;
+  color: var(--text-primary);
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+}
+
+.hero-socials a:hover {
+  border-color: var(--accent-cyan);
+  transform: translateY(-2px);
+}
+
+.location-badge {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ==========================================
+   Advanced 3D Turbine Blueprint Card
+   ========================================== */
+.blueprint-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f0f7ff 100%);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: var(--transition);
+  box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.15);
+}
+
+.blueprint-card:hover {
+  transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.25);
+  border-color: var(--accent-cyan);
+}
+
+.blueprint-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* 3D Turbine Vector Schematic Styling */
+.blueprint-drawing {
+  position: relative;
+  width: 100%;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.08) 0%, transparent 70%);
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blueprint-drawing svg {
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+  filter: drop-shadow(0 8px 20px rgba(2, 132, 199, 0.2));
+  animation: floatTurbine 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatTurbine {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+.blueprint-foot {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  margin-top: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* ==========================================
+   Metrics Grid
+   ========================================== */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.metric-card strong {
+  font-size: 2.2rem;
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metric-card span {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ==========================================
+   About Section
+   ========================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+}
+
+.about-feature p {
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.about-feature blockquote {
+  font-style: italic;
+  color: var(--text-primary);
+  border-left: 3px solid var(--accent-cyan);
+  padding-left: 1.2rem;
+  margin: 1.5rem 0;
+  font-weight: 500;
+}
+
+.about-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.95rem;
+}
+
+.detail-row span {
+  color: var(--text-secondary);
+}
+
+.signature {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-top: 0.5rem;
+}
+
+/* ==========================================
+   Skills Section
+   ========================================== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+
+.skill-card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.4rem;
+}
+
+.skill-icon {
+  font-size: 1.5rem;
+  background: #f0f7ff;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.skill-card h3 {
+  font-size: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.skill-card p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================
+   Projects Section
+   ========================================== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.project-card h3 {
+  font-size: 1.2rem;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+.project-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0.8rem;
+}
+
+.project-tags span {
+  font-size: 0.75rem;
+  background: #f0f7ff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: var(--accent-cyan);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  font-weight: 600;
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.project-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition);
+}
+
+.project-link:hover {
+  gap: 8px;
+}
+
+/* ==========================================
+   Experience Section
+   ========================================== */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.timeline-card .timeline-meta span {
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  background: #f0f7ff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.timeline-card h3 {
+  font-size: 1.2rem;
+  margin: 1rem 0 0.3rem 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.timeline-card .organization {
+  font-size: 0.9rem;
+  color: var(--accent-blue);
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.timeline-card p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================
+   Education Section
+   ========================================== */
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.education-card .education-top span {
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
+
+.education-card h3 {
+  font-size: 1.15rem;
+  margin: 0.8rem 0 0.4rem 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.education-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+}
+
+.result {
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  color: var(--text-secondary);
+}
+
+.result strong {
+  color: var(--text-primary);
+}
+
+/* ==========================================
+   Contact Section
+   ========================================== */
+.contact-section {
+  padding-bottom: 5rem;
+}
+
+.contact-panel {
+  background: linear-gradient(145deg, #ffffff, #f8fbff);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  position: relative;
+}
+
+.contact-panel h2 {
+  font-size: 2.2rem;
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 0.4rem 0 1rem 0;
+  letter-spacing: -0.5px;
+}
+
+.contact-panel > p {
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  font-size: 1.05rem;
+}
+
+.contact-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.contact-info-grid div {
+  background: #f0f7ff;
+  padding: 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.contact-info-grid span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.contact-info-grid strong {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.contact-form .full {
+  grid-column: span 2;
+}
+
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transition);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+/* ==========================================
+   Footer
+   ========================================== */
+.footer {
+  border-top: 1px solid var(--border-color);
+  padding: 2.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.footer-brand {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.footer-brand span {
+  color: var(--accent-cyan);
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
+@media (max-width: 900px) {
+  .hero, .about-grid, .metrics, .skills-grid, .projects-grid, .contact-info-grid {
+    grid-template-columns: 1fr;
+  }
+  .nav-menu {
+    display: none;
+  }
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+  .contact-form .full {
+    grid-column: span 1;
+  }
+}
+/* ==========================================
+   Real Mechanical Engineering Background
+   ========================================== */
+body {
+  background-color: #f1f6fa;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+
+  /* Real mechanical gears, blueprint schematics, and drafting tools background */
+  background-image: 
+    linear-gradient(rgba(241, 246, 250, 0.88), rgba(241, 246, 250, 0.93)),
+    url('https://www.deanza.edu/dmt/images/mechanical-engineering-concept-160256.jpg');
+  
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: cover;
+  background-attachment: fixed;
+}
+/* ==========================================
+   Clearly Visible Rotating Spur Gear Widget
+   ========================================== */
+/* ==========================================
+   Full-Page Rotating & Floating Gear Widget
+   ========================================== */
+/* ==========================================
+   Foolproof Rotating Spur Gear Watermark
+   ========================================== */
+/* ==========================================
+   Floating & Spinning Full-Page Gear
+   ========================================== */
+/* ==========================================
+   Full-Page Orbiting & Rotating Gear Widget
+   ========================================== */
+/* ==========================================
+   Full-Page Wandering & Spinning Gear Widget
+   ========================================== */
+/* ==========================================
+   Full-Page Wandering & Spinning Gear Widget
+   ========================================== */
+/* ==========================================
+   Full-Page Wandering & Spinning Gear Widget
+   ========================================== */
+/* ==========================================
+   Full-Page Wandering & Spinning Gear Widget
+   ========================================== */
+.global-gear-watermark {
+  position: fixed !important;
+  z-index: 999999 !important;
+  width: 110px !important;
+  height: 110px !important;
+  pointer-events: none !important;
+  filter: drop-shadow(0 10px 20px rgba(2, 132, 199, 0.4)) !important;
+  left: 50px;
+  top: 100px;
+  will-change: left, top;
+}
+
+.gear-spinner {
+  width: 100% !important;
+  height: 100% !important;
+  animation: spinGear 6s linear infinite !important;
+}
+
+.rotating-gear-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+@keyframes spinGear {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .global-gear-watermark {
+    width: 70px !important;
+    height: 70px !important;
+  }
+}
